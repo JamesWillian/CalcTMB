@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minWidth="350dp"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/o_que_eh_tmb"
+                android:textStyle="bold"
+                android:layout_margin="12dp"
+                style="@style/TextAppearance.Material3.TitleMedium"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sobre_tmb"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="12dp"
+                android:justificationMode="inter_word"
+                style="@style/TextAppearance.Material3.BodyMedium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gasto_calorico_diario"
+                android:textStyle="bold"
+                android:layout_margin="12dp"
+                style="@style/TextAppearance.Material3.TitleMedium"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sobre_gasto_calorico"
+                android:layout_marginHorizontal="12dp"
+                android:layout_marginBottom="12dp"
+                android:justificationMode="inter_word"
+                style="@style/TextAppearance.Material3.BodyMedium"/>
+
+            <TextView
+                android:id="@+id/fechar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/entendi"
+                android:textStyle="bold"
+                android:layout_margin="12dp"
+                android:textAlignment="center"
+                android:textColor="@color/primary"
+                style="@style/TextAppearance.Material3.TitleMedium"/>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

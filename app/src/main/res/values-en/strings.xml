@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CalcBMR</string>
+    <string name="calcular">Calculate BMR</string>
+    <string name="digite_sua_altura_cm">Enter your height (cm)</string>
+    <string name="digite_seu_peso_kg">Enter your weight (kg)</string>
+    <string name="digite_sua_idade">Enter your age</string>
+    <string name="feminino">Female</string>
+    <string name="masculino">Male</string>
+    <string name="calculadora_tmb">Basal Metabolism Rate \n Calculator (BMR)</string>
+    <string name="altura_cm">Height (cm):</string>
+    <string name="peso_kg">Weght (kg):</string>
+    <string name="idade">Age:</string>
+    <string name="hint_resultado_tmb">Your Basal Metabolism Rate (BMR) is:</string>
+    <string name="resultado_kcal">%1$s kcal/day</string>
+    <string name="ganho_peso">Weight Gain (+40%):</string>
+    <string name="hipertrofia">Hypertrophy (+20%):</string>
+    <string name="emagrecimento">Weight loss (-20%):</string>
+    <string name="desenvolvidor_por">Developer by: James Willian da Mata</string>
+    <string name="idade_invalida">Enter a valid Age!</string>
+    <string name="peso_invalido">Enter a valid weight!</string>
+    <string name="altura_invalida">Enter a valid Height!</string>
+    <string name="sobre_tmb">Basal Metabolic Rate (BMR) is the minimum amount of energy your body needs to function at rest, that is, the energy spent to maintain vital functions such as breathing, blood circulation, body temperature and cellular activity.</string>
+    <string name="o_que_eh_tmb">What is BMR?</string>
+    <string name="sobre_gasto_calorico">To define the Daily Caloric Consumption, a calculation is made based on the BMR.\n<b><li>Gain weight:</li></b> It is estimated to consume <b>40%</b> more calories than you expend (calorie surplus).\n<b><li>Hypertrophy:</li></b> It is estimated to consume <b>20%</b> more calories than you expend, focusing on proteins and strength training.\n<b><li>Lose weight:</li></b> It is estimated to expend <b>20%</b> more calories than you consume (calorie deficit).</string>
+    <string name="gasto_calorico_diario">Daily Calorie Consumption</string>
+    <string name="entendi">Got It!</string>
+</resources>

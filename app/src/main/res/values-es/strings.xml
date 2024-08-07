@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CalcTMB</string>
+    <string name="calcular">Calcular TMB</string>
+    <string name="digite_sua_altura_cm">Introduce tu altura (cm)</string>
+    <string name="digite_seu_peso_kg">Introduce tu peso (kg)</string>
+    <string name="digite_sua_idade">Introduzca su edad</string>
+    <string name="feminino">Femenino</string>
+    <string name="masculino">Masculino</string>
+    <string name="calculadora_tmb">Calculadora de Tasa de \n Metabolismo Basal (TMB)</string>
+    <string name="altura_cm">Altura (cm):</string>
+    <string name="peso_kg">Peso (kg):</string>
+    <string name="idade">Edad</string>
+    <string name="hint_resultado_tmb">Su Tasa de Metabolismo Basal (TMB) es:</string>
+    <string name="resultado_kcal">%1$s kcal/día</string>
+    <string name="ganho_peso">Aumento de peso (+40%):</string>
+    <string name="hipertrofia">Hipertrofia (+20%):</string>
+    <string name="emagrecimento">Pérdida de peso (-20%):</string>
+    <string name="desenvolvidor_por">Desarrollador por: James Willian da Mata</string>
+    <string name="idade_invalida">¡Ingrese una edad válida!</string>
+    <string name="peso_invalido">¡Ingrese un peso válido!</string>
+    <string name="altura_invalida">¡Ingrese una altura válida!</string>
+    <string name="sobre_tmb">La Tasa de Metabolismo Basal (TMB) es la cantidad mínima de energía que tu cuerpo necesita para funcionar en reposo, es decir, la energía gastada para mantener funciones vitales como la respiración, la circulación sanguínea, la temperatura corporal y la actividad celular.</string>
+    <string name="o_que_eh_tmb">¿Qué es TMB?</string>
+    <string name="sobre_gasto_calorico">Para definir el Gasto Calórico Diario se realiza un cálculo sobre la TMB.\n<b><li>Aumentar de peso:</li></b> Se estima que consumirás un <b>40%</b> más de calorías de las que quemas (excedente calórico).\n<b><li>Hipertrofia:</li></b> Se estima consumir un <b>20%</b> más de calorías de las que quemas, centrándote en las proteínas y el entrenamiento de fuerza.\n<b><li>Perder peso:</li></b> Se estima que quemas un <b>20%</b> más de calorías de las que consumes (déficit calórico).</string>
+    <string name="gasto_calorico_diario">Gasto calórico diario</string>
+    <string name="entendi">Entendí!</string>
+</resources>

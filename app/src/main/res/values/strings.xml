@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">CalcTMB</string>
+    <string name="calcular">Calcular TMB</string>
+    <string name="digite_sua_altura_cm">Digite sua altura (cm)</string>
+    <string name="digite_seu_peso_kg">Digite seu peso (kg)</string>
+    <string name="digite_sua_idade">Digite sua idade</string>
+    <string name="feminino">Feminino</string>
+    <string name="masculino">Masculino</string>
+    <string name="calculadora_tmb">Calculadora de Taxa de \n Metabolismo Basal (TMB)</string>
+    <string name="altura_cm">Altura (cm):</string>
+    <string name="peso_kg">Peso (kg):</string>
+    <string name="idade">Idade:</string>
+    <string name="hint_resultado_tmb">Sua Taxa de Metabolismo Basal (TMB) é:</string>
+    <string name="resultado_kcal">%1$s kcal/dia</string>
+    <string name="ganho_peso">Ganho de Peso (+40%):</string>
+    <string name="hipertrofia">Hipertrofia (+20%):</string>
+    <string name="emagrecimento">Emagrecimento (-20%):</string>
+    <string name="desenvolvidor_por">Desenvolvidor por: James Willian da Mata</string>
+    <string name="idade_invalida">Informe uma Idade válida!</string>
+    <string name="peso_invalido">Informe um Peso válido!</string>
+    <string name="altura_invalida">Informe uma Altura válida!</string>
+    <string name="sobre_tmb">A Taxa de Metabolismo Basal (TMB) é a quantidade mínima de energia que seu corpo precisa para funcionar em repouso, ou seja, a energia gasta para manter funções vitais como respiração, circulação sanguínea, temperatura corporal e atividade celular.</string>
+    <string name="o_que_eh_tmb">O que é TMB?</string>
+    <string name="sobre_gasto_calorico">Para definir o Gasto Calórico Diário, é feito um cálculo sobre o TMB.\n<b><li>Ganhar peso:</li></b> Estima-se consumir <b>40%</b> mais calorias do que gasta (superávit calórico).\n<b><li>Hipertrofia:</li></b> Estima-se consumir <b>20%</b> mais calorias do que gasta, com foco em proteínas e treino de força.\n<b><li>Perder peso:</li></b> Estima-se gastar <b>20%</b> mais calorias do que consome (déficit calórico).</string>
+    <string name="gasto_calorico_diario">Gasto Calórico Diário</string>
+    <string name="entendi">Entendi!</string>
+</resources>
