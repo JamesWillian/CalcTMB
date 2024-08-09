@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CalcTMB</string>
+    <string name="app_name">Calc TMB</string>
     <string name="calcular">Calcular TMB</string>
     <string name="digite_sua_altura_cm">Digite sua altura (cm)</string>
     <string name="digite_seu_peso_kg">Digite seu peso (kg)</string>
@@ -15,7 +15,7 @@
     <string name="ganho_peso">Ganho de Peso (+40%):</string>
     <string name="hipertrofia">Hipertrofia (+20%):</string>
     <string name="emagrecimento">Emagrecimento (-20%):</string>
-    <string name="desenvolvidor_por">Desenvolvidor por: James Willian da Mata</string>
+    <string name="desenvolvidor_por">Desenvolvido por: James Willian da Mata</string>
     <string name="idade_invalida">Informe uma Idade válida!</string>
     <string name="peso_invalido">Informe um Peso válido!</string>
     <string name="altura_invalida">Informe uma Altura válida!</string>

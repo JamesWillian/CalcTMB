@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CalcTMB</string>
+    <string name="app_name">Calc TMB</string>
     <string name="calcular">Calcular TMB</string>
     <string name="digite_sua_altura_cm">Introduce tu altura (cm)</string>
     <string name="digite_seu_peso_kg">Introduce tu peso (kg)</string>
@@ -13,10 +13,10 @@
     <string name="idade">Edad</string>
     <string name="hint_resultado_tmb">Su Tasa de Metabolismo Basal (TMB) es:</string>
     <string name="resultado_kcal">%1$s kcal/día</string>
-    <string name="ganho_peso">Aumento de peso (+40%):</string>
+    <string name="ganho_peso">Aumento de Peso (+40%):</string>
     <string name="hipertrofia">Hipertrofia (+20%):</string>
-    <string name="emagrecimento">Pérdida de peso (-20%):</string>
-    <string name="desenvolvidor_por">Desarrollador por: James Willian da Mata</string>
+    <string name="emagrecimento">Pérdida de Peso (-20%):</string>
+    <string name="desenvolvidor_por">Desarrollado por: James Willian da Mata</string>
     <string name="idade_invalida">¡Ingrese una edad válida!</string>
     <string name="peso_invalido">¡Ingrese un peso válido!</string>
     <string name="altura_invalida">¡Ingrese una altura válida!</string>

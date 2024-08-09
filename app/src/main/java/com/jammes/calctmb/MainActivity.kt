@@ -1,14 +1,13 @@
 package com.jammes.calctmb
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import androidx.activity.viewModels
 import androidx.core.view.WindowInsetsCompat
 import com.jammes.calctmb.databinding.ActivityMainBinding
 
@@ -16,8 +15,10 @@ class MainActivity : AppCompatActivity() {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModel.Factory()
+    }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,7 +32,9 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.resultadoLayout.visibility = View.INVISIBLE
+        viewModel.getUiState().observe(this) { uiState ->
+            bindUiState(uiState)
+        }
 
         binding.calcularButton.setOnClickListener {
             val idade = binding.idadeEditText.text.toString()
@@ -42,23 +45,16 @@ class MainActivity : AppCompatActivity() {
             if (validarCampos(idade, peso, altura))
                 return@setOnClickListener
 
-            val resultado = if (sexo == R.id.chipMasculino) {
-                88.362 + (13.397 * peso.toDouble()) + (4.799 * altura.toDouble()) - (5.677 * idade.toDouble())
-            } else {
-                447.593 + (9.247 * peso.toDouble()) + (3.098 * altura.toDouble()) - (4.330 * idade.toDouble())
-            }
-
-            val tmb = "%.2f".format(resultado)
-            val ganho = "%.2f".format(resultado * 1.4)
-            val hipertrofia = "%.2f".format(resultado * 0.8)
-            val emagrecimento = "%.2f".format(resultado * 1.2)
-
-            binding.resultadoLayout.visibility = View.VISIBLE
-
-            binding.resultado.text = getString(R.string.resultado_kcal, tmb)
-            binding.ganhoPeso.text = getString(R.string.resultado_kcal, ganho)
-            binding.hipertrofia.text = getString(R.string.resultado_kcal, hipertrofia)
-            binding.emagrecimento.text = getString(R.string.resultado_kcal, emagrecimento)
+            viewModel.calcularTMB(
+                idade.toInt(),
+                peso.toDouble(),
+                altura.toDouble(),
+                when (sexo) {
+                    R.id.chipMasculino -> "Masculino"
+                    R.id.chipFeminino -> "Feminino"
+                    else -> ""
+                }
+            )
 
             hideKeyboard()
 
@@ -71,6 +67,19 @@ class MainActivity : AppCompatActivity() {
 
         exibirMensagemInicial()
 
+    }
+
+    private fun bindUiState(uiState: MainViewModel.UiState?) {
+
+        binding.resultado.text = getString(R.string.resultado_kcal, uiState?.tmb)
+        binding.ganhoPeso.text = getString(R.string.resultado_kcal, uiState?.ganhoPeso)
+        binding.hipertrofia.text = getString(R.string.resultado_kcal, uiState?.hipertrofia)
+        binding.emagrecimento.text = getString(R.string.resultado_kcal, uiState?.emagrecimento)
+
+        if (uiState?.resultadoVisivel == true)
+            binding.resultadoLayout.visibility = View.VISIBLE
+        else
+            binding.resultadoLayout.visibility = View.INVISIBLE
     }
 
     private fun exibirMensagemInicial() {
@@ -114,6 +123,11 @@ class MainActivity : AppCompatActivity() {
             currentFocus?.windowToken,
             InputMethodManager.HIDE_NOT_ALWAYS
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.onResume()
     }
 
     override fun onDestroy() {
