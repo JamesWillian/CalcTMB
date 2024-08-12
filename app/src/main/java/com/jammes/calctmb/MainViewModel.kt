@@ -35,8 +35,8 @@ class MainViewModel: ViewModel() {
 
         val tmb = "%.2f".format(resultado)
         val ganho = "%.2f".format(resultado * 1.4)
-        val hipertrofia = "%.2f".format(resultado * 0.8)
-        val emagrecimento = "%.2f".format(resultado * 1.2)
+        val hipertrofia = "%.2f".format(resultado * 1.2)
+        val emagrecimento = "%.2f".format(resultado * 0.8)
 
         uiState.postValue(UiState(tmb, ganho, hipertrofia, emagrecimento, true))
     }
