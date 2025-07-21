@@ -11,11 +11,12 @@
         android:appCategory="productivity"
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CalcTMB"
-        tools:targetApi="31">
+        android:theme="@style/Theme.Compose"
+        tools:targetApi="35">
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.Compose" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
