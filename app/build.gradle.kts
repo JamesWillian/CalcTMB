@@ -6,14 +6,14 @@ plugins {
 
 android {
     namespace = "com.jammes.calctmb"
-    compileSdk = 35
+    compileSdk = 37
 
     defaultConfig {
         applicationId = "com.jammes.calctmb"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 2
-        versionName = "2.0"
+        targetSdk = 37
+        versionCode = 4
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,7 +36,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     buildFeatures{
-        viewBinding = true
         compose = true
     }
     kotlinOptions {
