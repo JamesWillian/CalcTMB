@@ -43,19 +43,19 @@ fun AppHeader(
         Row(
             modifier = Modifier
                 .statusBarsPadding()
-                .padding(start = 16.dp, end = 4.dp, top = 8.dp, bottom = 12.dp),
+                .padding(start = 12.dp, end = 4.dp, top = 8.dp, bottom = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 painter = painterResource(R.drawable.logo_tmb),
                 contentDescription = null,
-                modifier = Modifier.size(48.dp)
+                modifier = Modifier.size(62.dp)
             )
             Text(
                 text = stringResource(R.string.calculadora_tmb),
                 modifier = Modifier
                     .weight(1f)
-                    .padding(horizontal = 12.dp),
+                    .padding(horizontal = 8.dp),
                 style = MaterialTheme.typography.titleMedium
             )
             IconButton(onClick = onAboutClick) {
