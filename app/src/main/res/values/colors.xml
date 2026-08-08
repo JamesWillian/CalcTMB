@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Paleta da marca, espelhando ui/theme/Color.kt -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="primary">#055EA1</color>
-    <color name="soft_blue">#FFB3E5FC</color>
-    <color name="soft_pink">#FDA6C4</color>
-    <color name="gold">#FFB829</color>
+    <color name="platinum">#FFE5E5E5</color>
+    <color name="oxford_blue">#FF14213D</color>
+    <color name="orange_web">#FFFCA311</color>
+
+    <!-- Fundo da janela antes do Compose desenhar; evita flash de cor errada. -->
+    <color name="window_background">@color/white</color>
 </resources>

@@ -1,36 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Calc BMR</string>
-    <string name="calcular">Calculate BMR</string>
-    <string name="digite_sua_altura_cm">Enter your height (cm)</string>
-    <string name="digite_seu_peso_kg">Enter your weight (kg)</string>
-    <string name="digite_sua_idade">Enter your age</string>
-    <string name="feminino">Female</string>
-    <string name="masculino">Male</string>
     <string name="calculadora_tmb">Basal Metabolism Rate \nCalculator (BMR)</string>
-    <string name="altura_cm">Height (cm):</string>
-    <string name="peso_kg">Weight (kg):</string>
-    <string name="idade">Age:</string>
+
+    <!-- Form -->
+    <string name="seus_dados">Your data</string>
+    <string name="masculino">Male</string>
+    <string name="feminino">Female</string>
+    <string name="idade">Age</string>
+    <string name="peso">Weight</string>
+    <string name="altura">Height</string>
+    <string name="unidade_anos">years</string>
+    <string name="unidade_kg">kg</string>
+    <string name="unidade_cm">cm</string>
+    <string name="calcular">Calculate BMR</string>
+    <string name="limpar">Clear</string>
+    <string name="idade_invalida">Invalid age (1 to 120)</string>
+    <string name="peso_invalido">Invalid weight (1 to 500 kg)</string>
+    <string name="altura_invalida">Invalid height (1 to 300 cm)</string>
+    <string name="corrija_campos">Please fix the highlighted fields</string>
+
+    <!-- Result -->
     <string name="hint_resultado_tmb">Your Basal Metabolism Rate (BMR) is:</string>
     <string name="resultado_kcal">%1$s kcal/day</string>
-    <string name="ganho_peso">Weight Gain (+40%):</string>
-    <string name="hipertrofia">Hypertrophy (+20%):</string>
-    <string name="emagrecimento">Weight Loss (-20%):</string>
-    <string name="idade_invalida">Invalid Age!</string>
-    <string name="peso_invalido">Invalid Weight!</string>
-    <string name="altura_invalida">Invalid Height!</string>
+    <string name="kcal_dia">kcal/day</string>
+    <string name="ganho_peso">Weight gain (+40%)</string>
+    <string name="hipertrofia">Hypertrophy (+20%)</string>
+    <string name="emagrecimento">Weight loss (-20%)</string>
 
+    <!-- Saving / history -->
+    <string name="salvar">Save</string>
+    <string name="salvo">Saved</string>
+    <string name="salvar_resultado">Save result</string>
+    <string name="nome_opcional">Name (optional)</string>
+    <string name="nome_opcional_ajuda">Give it a name to recognize this calculation later. You can leave it blank.</string>
+    <string name="resultado_salvo">Result saved to history</string>
+    <string name="historico">History</string>
+    <string name="historico_vazio_titulo">No saved calculations</string>
+    <string name="historico_vazio_descricao">Calculate your BMR and tap Save to keep the result here.</string>
+    <string name="sem_nome">No name</string>
+    <string name="sexo">Sex</string>
+    <string name="valor_anos">%1$d years</string>
+    <string name="valor_kg">%1$s kg</string>
+    <string name="valor_cm">%1$s cm</string>
+
+    <!-- Details -->
+    <string name="renomear">Rename</string>
+    <string name="renomear_calculo">Rename calculation</string>
+    <string name="nome_atualizado">Name updated</string>
+    <string name="usar_novamente">Use again</string>
+    <string name="excluir">Delete</string>
+    <string name="excluir_titulo">Delete calculation?</string>
+    <string name="excluir_mensagem">This calculation will be removed from your history. This can\'t be undone.</string>
+    <string name="resultado_excluido">Calculation deleted</string>
+    <string name="cancelar">Cancel</string>
+    <string name="confirmar">Confirm</string>
+
+    <!-- About -->
     <string name="o_que_eh_tmb">What is BMR?</string>
     <string name="sobre_tmb">BMR represents the amount of energy (calories) your body consumes at complete rest, just to maintain vital functions such as breathing, blood circulation, and body temperature.</string>
     <string name="sobre_gasto_calorico">In addition to BMR, the body expends energy on physical activity, digestion, and other processes. Therefore, total caloric expenditure is generally higher than the BMR. This app estimates values for different goals.</string>
     <string name="ganhar_peso_sobre">Gain weight: It is estimated to consume 40% more calories than you expend (calorie surplus).</string>
     <string name="hipertrofia_sobre">Hypertrophy: It is estimated to consume 20% more calories than you expend, focusing on proteins and strength training.</string>
     <string name="perder_peso_sobre">Lose weight: It is estimated to expend 20% more calories than you consume (calorie deficit).</string>
-    <string name="gasto_calorico_diario">Daily Calorie Consumption</string>
     <string name="entendi">Got It!</string>
     <string name="tmb">Basal Metabolic Rate (BMR)</string>
     <string name="gasto_calorico_total">Total Caloric Expenditure</string>
     <string name="importante">Important</string>
     <string name="importante_sobre">This app provides an estimate. For personalized plans, consult a nutritionist or medical professional.</string>
-
 </resources>
