@@ -31,4 +31,13 @@ sealed class AnalyticsEvent(
 
     /** O usuário abriu a explicação sobre a TMB; a exibição automática inicial não conta. */
     data object AboutOpened : AnalyticsEvent("about_opened")
+
+    /** O convite para avaliar o app na loja apareceu, depois de um cálculo salvo. */
+    data object ReviewInviteShown : AnalyticsEvent("review_invite_shown")
+
+    /** O usuário tocou em "Avaliar". A loja nunca conta se ele chegou a avaliar. */
+    data object ReviewInviteAccepted : AnalyticsEvent("review_invite_accepted")
+
+    /** O usuário deixou para depois: "Agora não", voltar ou toque fora do convite. */
+    data object ReviewInviteDeclined : AnalyticsEvent("review_invite_declined")
 }

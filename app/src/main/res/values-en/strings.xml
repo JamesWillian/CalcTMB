@@ -59,6 +59,13 @@
     <!-- Errors -->
     <string name="algo_deu_errado">Something went wrong. Please try again.</string>
 
+    <!-- Review invite: invites without asking anything, as Google Play requires -->
+    <string name="convite_avaliacao_selo">Result saved</string>
+    <string name="convite_avaliacao_titulo">So glad you\'re here!</string>
+    <string name="convite_avaliacao_mensagem">If %1$s has been helping you take care of your health, leave a review on Google Play. It only takes a few seconds and helps other people find the app.</string>
+    <string name="avaliar_app">Rate the app</string>
+    <string name="agora_nao">Not now</string>
+
     <!-- About -->
     <string name="o_que_eh_tmb">What is BMR?</string>
     <string name="sobre_tmb">BMR represents the amount of energy (calories) your body consumes at complete rest, just to maintain vital functions such as breathing, blood circulation, and body temperature.</string>

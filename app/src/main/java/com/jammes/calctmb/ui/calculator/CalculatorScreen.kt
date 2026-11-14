@@ -52,6 +52,7 @@ import com.jammes.calctmb.ui.calculator.components.ResultCard
 import com.jammes.calctmb.ui.calculator.components.SectionLabel
 import com.jammes.calctmb.ui.components.AboutTmbDialog
 import com.jammes.calctmb.ui.components.NameInputDialog
+import com.jammes.calctmb.ui.components.ReviewInviteDialog
 import com.jammes.calctmb.ui.theme.AppTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -247,6 +248,11 @@ private fun CalculatorDialogs(
                     Text(stringResource(R.string.cancelar))
                 }
             }
+        )
+
+        CalculatorDialog.ReviewInvite -> ReviewInviteDialog(
+            onRate = { onAction(CalculatorAction.RateAppClicked) },
+            onDismiss = { onAction(CalculatorAction.DismissDialog) }
         )
     }
 }

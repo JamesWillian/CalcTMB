@@ -24,6 +24,9 @@ sealed interface CalculatorDialog {
     data object Save : CalculatorDialog
     data class Rename(val id: Long, val currentName: String?) : CalculatorDialog
     data class ConfirmDelete(val id: Long) : CalculatorDialog
+
+    /** Convite para avaliar o app na loja, logo depois de um cálculo salvo. */
+    data object ReviewInvite : CalculatorDialog
 }
 
 data class CalculatorUiState(
@@ -69,7 +72,12 @@ sealed interface CalculatorAction {
     data class ConfirmSave(val name: String) : CalculatorAction
 
     data object AboutClicked : CalculatorAction
+
+    /** Fechar o convite de avaliação também conta como recusa. */
     data object DismissDialog : CalculatorAction
+
+    /** "Avaliar" no convite: abre o cartão de avaliação da loja. */
+    data object RateAppClicked : CalculatorAction
 
     data class MeasurementClicked(val id: Long) : CalculatorAction
     data object DismissDetails : CalculatorAction

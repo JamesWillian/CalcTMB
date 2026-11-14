@@ -1,9 +1,11 @@
 package com.jammes.calctmb
 
 import android.app.Application
+import com.jammes.calctmb.data.review.ForegroundActivity
 import com.jammes.calctmb.di.dataModule
 import com.jammes.calctmb.di.domainModule
 import com.jammes.calctmb.di.presentationModule
+import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -18,5 +20,7 @@ class CalcTmbApplication : Application() {
             androidContext(this@CalcTmbApplication)
             modules(dataModule, domainModule, presentationModule)
         }
+        // O cartão de avaliação da loja abre por cima da tela que estiver à vista.
+        registerActivityLifecycleCallbacks(get<ForegroundActivity>())
     }
 }

@@ -58,6 +58,13 @@
     <!-- Falhas -->
     <string name="algo_deu_errado">Algo deu errado. Tente de novo.</string>
 
+    <!-- Convite para avaliar o app: convida sem perguntar nada, como pede a Google Play -->
+    <string name="convite_avaliacao_selo">Resultado salvo</string>
+    <string name="convite_avaliacao_titulo">Que bom ter você por aqui!</string>
+    <string name="convite_avaliacao_mensagem">Se o %1$s tem ajudado você a cuidar da saúde, deixe sua avaliação no Google Play. Leva só alguns segundos e ajuda outras pessoas a encontrarem o app.</string>
+    <string name="avaliar_app">Avaliar o app</string>
+    <string name="agora_nao">Agora não</string>
+
     <!-- Sobre -->
     <string name="o_que_eh_tmb">O que é TMB?</string>
     <string name="sobre_tmb">A TMB representa a quantidade de energia (calorias) que seu corpo consome em repouso absoluto, apenas para manter as funções vitais como respiração, circulação sanguínea e temperatura corporal.</string>

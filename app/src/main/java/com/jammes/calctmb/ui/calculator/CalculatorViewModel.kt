@@ -8,16 +8,20 @@ import com.jammes.calctmb.domain.analytics.CrashReporter
 import com.jammes.calctmb.domain.model.BodyProfileField
 import com.jammes.calctmb.domain.model.Sex
 import com.jammes.calctmb.domain.model.ValidationResult
+import com.jammes.calctmb.domain.usecase.AcceptReviewInviteUseCase
 import com.jammes.calctmb.domain.usecase.CalculateBmrUseCase
+import com.jammes.calctmb.domain.usecase.DeclineReviewInviteUseCase
 import com.jammes.calctmb.domain.usecase.DeleteMeasurementUseCase
 import com.jammes.calctmb.domain.usecase.MarkIntroAsShownUseCase
 import com.jammes.calctmb.domain.usecase.ObserveMeasurementsUseCase
 import com.jammes.calctmb.domain.usecase.RenameMeasurementUseCase
 import com.jammes.calctmb.domain.usecase.SaveMeasurementUseCase
+import com.jammes.calctmb.domain.usecase.ShouldInviteToReviewUseCase
 import com.jammes.calctmb.domain.usecase.ShouldShowIntroUseCase
 import com.jammes.calctmb.domain.usecase.ValidateBodyProfileUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,6 +39,9 @@ class CalculatorViewModel(
     private val renameMeasurement: RenameMeasurementUseCase,
     private val shouldShowIntro: ShouldShowIntroUseCase,
     private val markIntroAsShown: MarkIntroAsShownUseCase,
+    private val shouldInviteToReview: ShouldInviteToReviewUseCase,
+    private val acceptReviewInvite: AcceptReviewInviteUseCase,
+    private val declineReviewInvite: DeclineReviewInviteUseCase,
     private val analytics: AnalyticsTracker,
     private val crashReporter: CrashReporter
 ) : ViewModel() {
@@ -53,6 +60,14 @@ class CalculatorViewModel(
     private val failureHandler = CoroutineExceptionHandler { _, error ->
         crashReporter.report(error)
         _events.trySend(CalculatorEvent.Failed)
+    }
+
+    /**
+     * O convite para avaliar o app nunca atrapalha: uma falha nele vai para o Crashlytics, mas
+     * a tela não avisa nada, porque o que o usuário fez (salvar) deu certo.
+     */
+    private val quietFailureHandler = CoroutineExceptionHandler { _, error ->
+        crashReporter.report(error)
     }
 
     init {
@@ -75,6 +90,7 @@ class CalculatorViewModel(
             CalculatorAction.AboutClicked -> openAbout()
 
             CalculatorAction.DismissDialog -> dismissDialog()
+            CalculatorAction.RateAppClicked -> rateApp()
 
             is CalculatorAction.MeasurementClicked -> _uiState.update {
                 it.copy(selectedId = action.id)
@@ -202,7 +218,33 @@ class CalculatorViewModel(
             _uiState.update { it.copy(dialog = null, isCurrentResultSaved = true) }
             analytics.track(AnalyticsEvent.MeasurementSaved)
             _events.send(CalculatorEvent.Saved)
+            inviteToReviewIfDue()
         }
+    }
+
+    /**
+     * Um cálculo recém-salvo é o momento em que o app acabou de ser útil, e é aí que ele
+     * convida o usuário a avaliá-lo na loja — se ainda não aceitou nem recusou há pouco.
+     */
+    private fun inviteToReviewIfDue() {
+        viewModelScope.launch(quietFailureHandler) {
+            if (!shouldInviteToReview()) return@launch
+            // Primeiro a confirmação de que o cálculo foi salvo, depois o convite.
+            delay(REVIEW_INVITE_DELAY_MS)
+            // Se nesse meio-tempo o usuário abriu outra coisa, o convite fica para o próximo salvamento.
+            val state = _uiState.value
+            if (state.dialog != null || state.selectedId != null) return@launch
+            _uiState.update { it.copy(dialog = CalculatorDialog.ReviewInvite) }
+            analytics.track(AnalyticsEvent.ReviewInviteShown)
+        }
+    }
+
+    private fun rateApp() {
+        if (_uiState.value.dialog != CalculatorDialog.ReviewInvite) return
+        // O cartão da loja precisa ser a única coisa por cima da tela: o convite sai antes.
+        _uiState.update { it.copy(dialog = null) }
+        analytics.track(AnalyticsEvent.ReviewInviteAccepted)
+        viewModelScope.launch(quietFailureHandler) { acceptReviewInvite() }
     }
 
     private fun openRenameDialog(id: Long) {
@@ -254,9 +296,17 @@ class CalculatorViewModel(
     }
 
     private fun dismissDialog() {
-        val current = _uiState.value.dialog
-        if (current is CalculatorDialog.About && current.firstLaunch) {
-            viewModelScope.launch(failureHandler) { markIntroAsShown() }
+        when (val current = _uiState.value.dialog) {
+            is CalculatorDialog.About -> if (current.firstLaunch) {
+                viewModelScope.launch(failureHandler) { markIntroAsShown() }
+            }
+
+            CalculatorDialog.ReviewInvite -> {
+                analytics.track(AnalyticsEvent.ReviewInviteDeclined)
+                viewModelScope.launch(quietFailureHandler) { declineReviewInvite() }
+            }
+
+            else -> Unit
         }
         _uiState.update { it.copy(dialog = null) }
     }
@@ -289,5 +339,8 @@ class CalculatorViewModel(
         const val MAX_AGE_LENGTH = 3
         const val MAX_HEIGHT_LENGTH = 3
         const val MAX_WEIGHT_LENGTH = 6
+
+        /** Tempo para o usuário ver o "Salvo" e a confirmação antes do convite entrar. */
+        const val REVIEW_INVITE_DELAY_MS = 1_000L
     }
 }

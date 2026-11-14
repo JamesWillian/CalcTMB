@@ -17,7 +17,10 @@ class AnalyticsEventTest {
         AnalyticsEvent.MeasurementReused,
         AnalyticsEvent.MeasurementRenamed,
         AnalyticsEvent.MeasurementDeleted,
-        AnalyticsEvent.AboutOpened
+        AnalyticsEvent.AboutOpened,
+        AnalyticsEvent.ReviewInviteShown,
+        AnalyticsEvent.ReviewInviteAccepted,
+        AnalyticsEvent.ReviewInviteDeclined
     )
 
     @Test

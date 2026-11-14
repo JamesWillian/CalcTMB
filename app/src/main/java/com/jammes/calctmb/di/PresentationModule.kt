@@ -15,6 +15,9 @@ val presentationModule = module {
             renameMeasurement = get(),
             shouldShowIntro = get(),
             markIntroAsShown = get(),
+            shouldInviteToReview = get(),
+            acceptReviewInvite = get(),
+            declineReviewInvite = get(),
             analytics = get(),
             crashReporter = get()
         )
