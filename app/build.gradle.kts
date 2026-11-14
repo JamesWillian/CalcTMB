@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.firebase.crashlytics)
 }
 
 android {
@@ -17,6 +19,11 @@ android {
         versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Relatórios de falhas do Crashlytics, lidos pelo meta-data do manifesto.
+        manifestPlaceholders["crashlyticsEnabled"] = true
+        // Números de uso do Analytics, no outro meta-data: true desativa a coleta.
+        manifestPlaceholders["analyticsDeactivated"] = false
     }
 
     buildTypes {
@@ -30,6 +37,10 @@ android {
         }
         debug {
             isDebuggable = true
+            // Debug e release usam o mesmo pacote (o mesmo app no Firebase): as falhas
+            // e o uso durante o desenvolvimento ficam fora dos painéis.
+            manifestPlaceholders["crashlyticsEnabled"] = false
+            manifestPlaceholders["analyticsDeactivated"] = true
         }
     }
     compileOptions {
@@ -39,8 +50,10 @@ android {
     buildFeatures {
         compose = true
     }
-    kotlinOptions {
-        jvmTarget = "11"
+    kotlin {
+        compilerOptions {
+            jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+        }
     }
 }
 
@@ -72,6 +85,10 @@ dependencies {
     implementation(platform(libs.koin.bom))
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)

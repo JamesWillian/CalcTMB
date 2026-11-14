@@ -2,6 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- O Analytics e o Crashlytics enviam dados pela internet. As bibliotecas do Firebase
+         já trazem esta permissão; declarada aqui, ela fica à vista. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- O app não tem anúncios: sai o ID de publicidade e as medições de anúncios do
+         Android que o Analytics traz por padrão. -->
+    <uses-permission
+        android:name="com.google.android.gms.permission.AD_ID"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.ACCESS_ADSERVICES_AD_ID"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION"
+        tools:node="remove" />
+
     <application
         android:name=".CalcTmbApplication"
         android:allowBackup="true"
@@ -24,6 +39,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Relatórios de falhas: o build type decide, e no debug ficam desligados. -->
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsEnabled}" />
+        <!-- Números de uso: o build type decide, e no debug a coleta fica desativada. -->
+        <meta-data
+            android:name="firebase_analytics_collection_deactivated"
+            android:value="${analyticsDeactivated}" />
+        <!-- Sem anúncios: nada de ID de publicidade nem de sinais para personalizar anúncios. -->
+        <meta-data
+            android:name="google_analytics_adid_collection_enabled"
+            android:value="false" />
+        <meta-data
+            android:name="google_analytics_default_allow_ad_personalization_signals"
+            android:value="false" />
     </application>
 
 </manifest>
