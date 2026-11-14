@@ -29,7 +29,11 @@ android {
     buildTypes {
         release {
             isDebuggable = false
-            isMinifyEnabled = false
+            // O R8 ofusca, encolhe e otimiza o código. O plugin do Crashlytics envia o
+            // mapping de cada build, e o painel mostra as falhas com os nomes originais.
+            isMinifyEnabled = true
+            // Tira do APK os recursos que ficaram sem uso depois do R8.
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

@@ -14,8 +14,10 @@
 
 # Uncomment this to preserve the line number information for
 # debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# O Crashlytics precisa das linhas para mostrar onde cada falha aconteceu; o mapping
+# enviado no build devolve as classes, os métodos e os arquivos originais.
+-keepattributes SourceFile,LineNumberTable
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
-#-renamesourcefileattribute SourceFile
+-renamesourcefileattribute SourceFile
