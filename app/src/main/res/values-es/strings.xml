@@ -56,6 +56,9 @@
     <string name="cancelar">Cancelar</string>
     <string name="confirmar">Confirmar</string>
 
+    <!-- Errores -->
+    <string name="algo_deu_errado">Algo salió mal. Inténtalo de nuevo.</string>
+
     <!-- Acerca de -->
     <string name="o_que_eh_tmb">¿Qué es TMB?</string>
     <string name="sobre_tmb">El TMB representa la cantidad de energía (calorías) que tu cuerpo consume en reposo absoluto, solo para mantener funciones vitales como la respiración, la circulación sanguínea y la temperatura corporal.</string>

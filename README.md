@@ -9,13 +9,14 @@
 
 - **Cálculo da TMB**: Informe sua idade, peso, altura e sexo para calcular a Taxa de Metabolismo Basal.
 - **Gasto Calórico**: Exibe o gasto calórico diário estimado com base na TMB.
-- **Privacidade e Segurança**: O aplicativo não armazena informações do usuário, não exige conexão com a internet e não solicita permissões adicionais para o uso de recursos do aparelho.
+- **Privacidade e Segurança**: Os cálculos salvos ficam guardados no próprio aparelho, e o app funciona sem internet. Quando há conexão, ele envia ao Firebase (Google) relatórios de falhas e estatísticas de uso, sem nenhum dado corporal (sexo, idade, peso, altura, resultados ou nomes dos cálculos) e sem o ID de publicidade. O app não pede acesso a recursos do aparelho.
 
 ## Tecnologias Utilizadas
 
 - **Android SDK**: Utilizado para o desenvolvimento do aplicativo.
 - **Linguagem**: Utiliza o Kotlin como linguagem principal.
 - **Material Design**: Para a interface de usuário.
+- **Firebase**: Crashlytics para os relatórios de falhas e Google Analytics para as estatísticas de uso.
 
 ## Instalação
 

@@ -72,6 +72,7 @@ fun CalculatorRoute(
                     CalculatorEvent.Deleted -> R.string.resultado_excluido
                     CalculatorEvent.Renamed -> R.string.nome_atualizado
                     CalculatorEvent.InvalidForm -> R.string.corrija_campos
+                    CalculatorEvent.Failed -> R.string.algo_deu_errado
                 }
             )
             snackbarHostState.currentSnackbarData?.dismiss()

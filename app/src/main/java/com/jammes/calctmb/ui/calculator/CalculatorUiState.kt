@@ -52,6 +52,9 @@ sealed interface CalculatorEvent {
     data object Deleted : CalculatorEvent
     data object Renamed : CalculatorEvent
     data object InvalidForm : CalculatorEvent
+
+    /** Uma leitura ou gravação falhou; a falha já foi para o Crashlytics. */
+    data object Failed : CalculatorEvent
 }
 
 sealed interface CalculatorAction {

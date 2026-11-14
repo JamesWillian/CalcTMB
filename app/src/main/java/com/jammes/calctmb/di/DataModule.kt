@@ -2,10 +2,14 @@ package com.jammes.calctmb.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.jammes.calctmb.data.analytics.FirebaseAnalyticsTracker
+import com.jammes.calctmb.data.analytics.FirebaseCrashReporter
 import com.jammes.calctmb.data.local.CalcTmbDatabase
 import com.jammes.calctmb.data.local.dao.MeasurementDao
 import com.jammes.calctmb.data.repository.IntroRepositoryImpl
 import com.jammes.calctmb.data.repository.MeasurementRepositoryImpl
+import com.jammes.calctmb.domain.analytics.AnalyticsTracker
+import com.jammes.calctmb.domain.analytics.CrashReporter
 import com.jammes.calctmb.domain.repository.IntroRepository
 import com.jammes.calctmb.domain.repository.MeasurementRepository
 import com.jammes.calctmb.domain.util.TimeProvider
@@ -29,4 +33,8 @@ val dataModule = module {
     single<MeasurementRepository> { MeasurementRepositoryImpl(get()) }
 
     single<IntroRepository> { IntroRepositoryImpl(get()) }
+
+    single<AnalyticsTracker> { FirebaseAnalyticsTracker() }
+
+    single<CrashReporter> { FirebaseCrashReporter() }
 }

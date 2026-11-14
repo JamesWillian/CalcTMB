@@ -2,6 +2,9 @@ package com.jammes.calctmb.ui.calculator
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jammes.calctmb.domain.analytics.AnalyticsEvent
+import com.jammes.calctmb.domain.analytics.AnalyticsTracker
+import com.jammes.calctmb.domain.analytics.CrashReporter
 import com.jammes.calctmb.domain.model.BodyProfileField
 import com.jammes.calctmb.domain.model.Sex
 import com.jammes.calctmb.domain.model.ValidationResult
@@ -13,6 +16,7 @@ import com.jammes.calctmb.domain.usecase.RenameMeasurementUseCase
 import com.jammes.calctmb.domain.usecase.SaveMeasurementUseCase
 import com.jammes.calctmb.domain.usecase.ShouldShowIntroUseCase
 import com.jammes.calctmb.domain.usecase.ValidateBodyProfileUseCase
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +34,9 @@ class CalculatorViewModel(
     private val deleteMeasurement: DeleteMeasurementUseCase,
     private val renameMeasurement: RenameMeasurementUseCase,
     private val shouldShowIntro: ShouldShowIntroUseCase,
-    private val markIntroAsShown: MarkIntroAsShownUseCase
+    private val markIntroAsShown: MarkIntroAsShownUseCase,
+    private val analytics: AnalyticsTracker,
+    private val crashReporter: CrashReporter
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(CalculatorUiState())
@@ -38,6 +44,16 @@ class CalculatorViewModel(
 
     private val _events = Channel<CalculatorEvent>(Channel.BUFFERED)
     val events: Flow<CalculatorEvent> = _events.receiveAsFlow()
+
+    /**
+     * Uma falha ao ler ou gravar (banco ou preferências) não fecha o app: vai para o
+     * Crashlytics como não fatal e a tela avisa o usuário. Precisa vir antes do `init`,
+     * que já dispara as primeiras leituras.
+     */
+    private val failureHandler = CoroutineExceptionHandler { _, error ->
+        crashReporter.report(error)
+        _events.trySend(CalculatorEvent.Failed)
+    }
 
     init {
         observeHistory()
@@ -56,9 +72,7 @@ class CalculatorViewModel(
             CalculatorAction.SaveClicked -> openSaveDialog()
             is CalculatorAction.ConfirmSave -> save(action.name)
 
-            CalculatorAction.AboutClicked -> _uiState.update {
-                it.copy(dialog = CalculatorDialog.About(firstLaunch = false))
-            }
+            CalculatorAction.AboutClicked -> openAbout()
 
             CalculatorAction.DismissDialog -> dismissDialog()
 
@@ -80,7 +94,7 @@ class CalculatorViewModel(
     }
 
     private fun observeHistory() {
-        viewModelScope.launch {
+        viewModelScope.launch(failureHandler) {
             observeMeasurements().collect { measurements ->
                 val items = measurements.map { measurement ->
                     MeasurementItem(measurement, calculateBmr(measurement.profile))
@@ -97,11 +111,16 @@ class CalculatorViewModel(
     }
 
     private fun showIntroIfNeeded() {
-        viewModelScope.launch {
+        viewModelScope.launch(failureHandler) {
             if (shouldShowIntro()) {
                 _uiState.update { it.copy(dialog = CalculatorDialog.About(firstLaunch = true)) }
             }
         }
+    }
+
+    private fun openAbout() {
+        _uiState.update { it.copy(dialog = CalculatorDialog.About(firstLaunch = false)) }
+        analytics.track(AnalyticsEvent.AboutOpened)
     }
 
     private fun onSexChanged(sex: Sex) = _uiState.update {
@@ -144,24 +163,31 @@ class CalculatorViewModel(
                     it.copy(invalidFields = validation.invalidFields).withResultCleared()
                 }
                 _events.trySend(CalculatorEvent.InvalidForm)
+                analytics.track(AnalyticsEvent.InvalidForm(validation.invalidFields))
             }
 
-            is ValidationResult.Valid -> _uiState.update {
-                it.copy(
-                    invalidFields = emptySet(),
-                    calculatedProfile = validation.profile,
-                    result = calculateBmr(validation.profile),
-                    isCurrentResultSaved = false
-                )
+            is ValidationResult.Valid -> {
+                _uiState.update {
+                    it.copy(
+                        invalidFields = emptySet(),
+                        calculatedProfile = validation.profile,
+                        result = calculateBmr(validation.profile),
+                        isCurrentResultSaved = false
+                    )
+                }
+                analytics.track(AnalyticsEvent.BmrCalculated)
             }
         }
     }
 
-    private fun clearForm() = _uiState.update {
-        it.copy(
-            input = CalculatorUiState().input,
-            invalidFields = emptySet()
-        ).withResultCleared()
+    private fun clearForm() {
+        _uiState.update {
+            it.copy(
+                input = CalculatorUiState().input,
+                invalidFields = emptySet()
+            ).withResultCleared()
+        }
+        analytics.track(AnalyticsEvent.FormCleared)
     }
 
     private fun openSaveDialog() {
@@ -171,9 +197,10 @@ class CalculatorViewModel(
 
     private fun save(name: String) {
         val profile = _uiState.value.calculatedProfile ?: return
-        viewModelScope.launch {
+        viewModelScope.launch(failureHandler) {
             saveMeasurement(profile, name)
             _uiState.update { it.copy(dialog = null, isCurrentResultSaved = true) }
+            analytics.track(AnalyticsEvent.MeasurementSaved)
             _events.send(CalculatorEvent.Saved)
         }
     }
@@ -187,18 +214,20 @@ class CalculatorViewModel(
 
     private fun rename(name: String) {
         val dialog = _uiState.value.dialog as? CalculatorDialog.Rename ?: return
-        viewModelScope.launch {
+        viewModelScope.launch(failureHandler) {
             renameMeasurement(dialog.id, name)
             _uiState.update { it.copy(dialog = null) }
+            analytics.track(AnalyticsEvent.MeasurementRenamed)
             _events.send(CalculatorEvent.Renamed)
         }
     }
 
     private fun confirmDelete() {
         val dialog = _uiState.value.dialog as? CalculatorDialog.ConfirmDelete ?: return
-        viewModelScope.launch {
+        viewModelScope.launch(failureHandler) {
             deleteMeasurement(dialog.id)
             _uiState.update { it.copy(dialog = null, selectedId = null) }
+            analytics.track(AnalyticsEvent.MeasurementDeleted)
             _events.send(CalculatorEvent.Deleted)
         }
     }
@@ -221,12 +250,13 @@ class CalculatorViewModel(
                 selectedId = null
             )
         }
+        analytics.track(AnalyticsEvent.MeasurementReused)
     }
 
     private fun dismissDialog() {
         val current = _uiState.value.dialog
         if (current is CalculatorDialog.About && current.firstLaunch) {
-            viewModelScope.launch { markIntroAsShown() }
+            viewModelScope.launch(failureHandler) { markIntroAsShown() }
         }
         _uiState.update { it.copy(dialog = null) }
     }

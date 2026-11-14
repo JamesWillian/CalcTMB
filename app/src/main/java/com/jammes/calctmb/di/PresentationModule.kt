@@ -14,7 +14,9 @@ val presentationModule = module {
             deleteMeasurement = get(),
             renameMeasurement = get(),
             shouldShowIntro = get(),
-            markIntroAsShown = get()
+            markIntroAsShown = get(),
+            analytics = get(),
+            crashReporter = get()
         )
     }
 }

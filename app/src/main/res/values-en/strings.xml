@@ -56,6 +56,9 @@
     <string name="cancelar">Cancel</string>
     <string name="confirmar">Confirm</string>
 
+    <!-- Errors -->
+    <string name="algo_deu_errado">Something went wrong. Please try again.</string>
+
     <!-- About -->
     <string name="o_que_eh_tmb">What is BMR?</string>
     <string name="sobre_tmb">BMR represents the amount of energy (calories) your body consumes at complete rest, just to maintain vital functions such as breathing, blood circulation, and body temperature.</string>
